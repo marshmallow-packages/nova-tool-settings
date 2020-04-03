@@ -1,0 +1,46 @@
+{
+    "name": "marshmallow/nova-tool-settings",
+    "description": "A Laravel Nova Tool to let users manage global settings created from code.",
+    "keywords": [
+        "laravel",
+        "nova",
+        "settings",
+        "global",
+        "configuration",
+        "config",
+        "setting",
+        "preference",
+        "preferences",
+        "manage"
+    ],
+    "license": "MIT",
+    "require": {
+        "php": ">=7.1.0"
+    },
+    "authors": [
+        {
+            "name": "Marshmallow",
+            "email": "stef@marshmallow.dev",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "files": [
+            "helpers.php"
+        ],
+        "psr-4": {
+            "Marshmallow\\NovaSettingsTool\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Marshmallow\\NovaSettingsTool\\ToolServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "prefer-stable": true
+}
