@@ -2,6 +2,7 @@
 
 A Laravel Nova Tool to let users manage global settings created from code. This package works only in combination with Laravel Nova.
 
+
 ## Table of Contents
 * **[Installation](#installation)**
   * [Install Package](#install-package)
