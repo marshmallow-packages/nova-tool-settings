@@ -23,6 +23,7 @@ trait JsonableTrait
         foreach ($this->getJsonables() as $jsonable) {
             $jsonables[$jsonable] = $this->{'get' . Str::camel($jsonable)}();
         }
+
         return $jsonables;
     }
 

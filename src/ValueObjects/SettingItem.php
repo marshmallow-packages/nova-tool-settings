@@ -2,6 +2,8 @@
 
 namespace Marshmallow\NovaSettingsTool\ValueObjects;
 
+use Illuminate\Contracts\Container\Container;
+use JsonSerializable;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\Code;
 use Laravel\Nova\Fields\Date;
@@ -11,15 +13,13 @@ use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Password;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
-use Serializable;
-use JsonSerializable;
-use Illuminate\Contracts\Container\Container;
 use Marshmallow\NovaSettingsTool\Entities\SettingValue;
 use Marshmallow\NovaSettingsTool\Enums\SettingType;
 use Marshmallow\NovaSettingsTool\Exceptions\SettingTypeNotValidException;
 use Marshmallow\NovaSettingsTool\Traits\CacheableTrait;
 use Marshmallow\NovaSettingsTool\Traits\CallableTrait;
 use Marshmallow\NovaSettingsTool\Traits\JsonableTrait;
+use Serializable;
 
 /**
  * Class SettingItem
@@ -85,7 +85,7 @@ final class SettingItem implements Serializable, JsonSerializable
         'priority',
         'options',
         'field',
-        'value'
+        'value',
     ];
 
     /**
@@ -99,7 +99,7 @@ final class SettingItem implements Serializable, JsonSerializable
         'priority',
         'options',
         'field',
-        'value'
+        'value',
     ];
 
     /**
@@ -127,6 +127,7 @@ final class SettingItem implements Serializable, JsonSerializable
     public function key(string $key): SettingItem
     {
         $this->key = $key;
+
         return $this;
     }
 
@@ -135,7 +136,7 @@ final class SettingItem implements Serializable, JsonSerializable
      */
     public function getName(): string
     {
-        return !empty($this->name) ? $this->name : $this->getNameUsingKey();
+        return ! empty($this->name) ? $this->name : $this->getNameUsingKey();
     }
 
     /**
@@ -145,6 +146,7 @@ final class SettingItem implements Serializable, JsonSerializable
     public function name(string $name): SettingItem
     {
         $this->name = $name;
+
         return $this;
     }
 
@@ -164,10 +166,11 @@ final class SettingItem implements Serializable, JsonSerializable
      */
     public function type(string $type): SettingItem
     {
-        if (!SettingType::isValidValue($type)) {
+        if (! SettingType::isValidValue($type)) {
             throw new SettingTypeNotValidException($type);
         }
         $this->type = $type;
+
         return $this;
     }
 
@@ -186,6 +189,7 @@ final class SettingItem implements Serializable, JsonSerializable
     public function priority(int $priority): SettingItem
     {
         $this->priority = $priority;
+
         return $this;
     }
 
@@ -204,6 +208,7 @@ final class SettingItem implements Serializable, JsonSerializable
     public function options(array $options): SettingItem
     {
         $this->options = $options;
+
         return $this;
     }
 
@@ -217,6 +222,7 @@ final class SettingItem implements Serializable, JsonSerializable
         }
         $this->field->name = $this->getName();
         $this->field->value = $this->getValue();
+
         return $this->field;
     }
 
@@ -227,6 +233,7 @@ final class SettingItem implements Serializable, JsonSerializable
     public function field(Field $field): SettingItem
     {
         $this->field = $field;
+
         return $this;
     }
 
@@ -237,9 +244,9 @@ final class SettingItem implements Serializable, JsonSerializable
      */
     public function getValue(bool $forceFromDatabase = false, bool $isObjectOrArray = false)
     {
-        $keyNotValid = is_null($this->key) || empty($this->key) || !is_string($this->key);
+        $keyNotValid = is_null($this->key) || empty($this->key) || ! is_string($this->key);
         $valueNotValid = is_null($this->value) || empty($this->value);
-        if (!$keyNotValid || !$valueNotValid || !$forceFromDatabase) {
+        if (! $keyNotValid || ! $valueNotValid || ! $forceFromDatabase) {
             $collection = SettingValue::findByKey($this->getKey());
             if ($collection->count() > 0) {
                 $this->value = $collection->first()->value;
@@ -286,14 +293,14 @@ final class SettingItem implements Serializable, JsonSerializable
      */
     public function save(): SettingItem
     {
-        if ($this->changed === true && !empty($this->getKey())) {
+        if ($this->changed === true && ! empty($this->getKey())) {
             $collection = SettingValue::findByKey($this->key);
             if ($collection->count() > 0) {
                 $value = $this->value;
                 if (is_object($value) || is_array($value)) {
                     $value = json_encode($value);
                 }
-                if (!is_null($this->value)) {
+                if (! is_null($this->value)) {
                     $collection->first()->value = $value;
                     $collection->first()->save();
                     $this->changed = false;
@@ -303,7 +310,7 @@ final class SettingItem implements Serializable, JsonSerializable
                     $this->setDefaultValue();
                 }
 
-                if (!is_null($this->value)) {
+                if (! is_null($this->value)) {
                     $item = new SettingValue();
                     $item->key = $this->getKey();
                     $item->value = $this->value;
@@ -326,6 +333,7 @@ final class SettingItem implements Serializable, JsonSerializable
         if ($save === true) {
             $this->save();
         }
+
         return $this;
     }
 
@@ -334,7 +342,7 @@ final class SettingItem implements Serializable, JsonSerializable
      */
     private function getNameUsingKey() : string
     {
-        return title_case(str_replace('_', ' ',snake_case($this->getKey())));
+        return title_case(str_replace('_', ' ', snake_case($this->getKey())));
     }
 
     /**
@@ -345,14 +353,30 @@ final class SettingItem implements Serializable, JsonSerializable
     {
         $key = $this->getKey();
         switch ($type) {
-            case SettingType::TEXT: $field = Text::make($key); $field->name = $this->getName(); return $field;
-            case SettingType::BOOLEAN: $field = Boolean::make($key); $field->name = $this->getName(); return $field;
-            case SettingType::NUMBER: $field = Number::make($key); $field->name = $this->getName(); return $field;
-            case SettingType::TEXTAREA: $field = Textarea::make($key); $field->name = $this->getName(); return $field;
-            case SettingType::DATE: $field = Date::make($key); $field->name = $this->getName(); return $field;
-            case SettingType::DATETIME: $field = DateTime::make($key); $field->name = $this->getName(); return $field;
-            case SettingType::CODE: $field = Code::make($key); $field->name = $this->getName(); return $field;
-            case SettingType::PASSWORD: $field = Password::make($key); $field->name = $this->getName(); return $field;
+            case SettingType::TEXT: $field = Text::make($key); $field->name = $this->getName();
+
+return $field;
+            case SettingType::BOOLEAN: $field = Boolean::make($key); $field->name = $this->getName();
+
+return $field;
+            case SettingType::NUMBER: $field = Number::make($key); $field->name = $this->getName();
+
+return $field;
+            case SettingType::TEXTAREA: $field = Textarea::make($key); $field->name = $this->getName();
+
+return $field;
+            case SettingType::DATE: $field = Date::make($key); $field->name = $this->getName();
+
+return $field;
+            case SettingType::DATETIME: $field = DateTime::make($key); $field->name = $this->getName();
+
+return $field;
+            case SettingType::CODE: $field = Code::make($key); $field->name = $this->getName();
+
+return $field;
+            case SettingType::PASSWORD: $field = Password::make($key); $field->name = $this->getName();
+
+return $field;
             default: return Text::make($key);
         }
     }

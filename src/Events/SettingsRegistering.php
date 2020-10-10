@@ -2,8 +2,8 @@
 
 namespace Marshmallow\NovaSettingsTool\Events;
 
-use Marshmallow\NovaSettingsTool\ValueObjects\SettingRegister;
 use Illuminate\Queue\SerializesModels;
+use Marshmallow\NovaSettingsTool\ValueObjects\SettingRegister;
 
 /**
  * Class SettingsRegistering

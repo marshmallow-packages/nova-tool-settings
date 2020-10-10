@@ -9,7 +9,8 @@ use ReflectionException;
  * Class BaseEnum
  * @package Marshmallow\NovaSettingsTool\Enums
  */
-abstract class BaseEnum {
+abstract class BaseEnum
+{
     /**
      * @var array|null
      */
@@ -25,10 +26,11 @@ abstract class BaseEnum {
             self::$constCacheArray = [];
         }
         $calledClass = get_called_class();
-        if (!array_key_exists($calledClass, self::$constCacheArray)) {
+        if (! array_key_exists($calledClass, self::$constCacheArray)) {
             $reflect = new ReflectionClass($calledClass);
             self::$constCacheArray[$calledClass] = $reflect->getConstants();
         }
+
         return self::$constCacheArray[$calledClass];
     }
 
@@ -47,6 +49,7 @@ abstract class BaseEnum {
         }
 
         $keys = array_map('strtolower', array_keys($constants));
+
         return in_array(strtolower($name), $keys);
     }
 
@@ -59,6 +62,7 @@ abstract class BaseEnum {
     public static function isValidValue($value, bool $strict = true): bool
     {
         $values = array_values(self::getConstants());
+
         return in_array($value, $values, $strict);
     }
 }
