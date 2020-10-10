@@ -19,6 +19,7 @@ trait CacheableTrait
         foreach ($this->getCacheables() as $cacheable) {
             $cacheables[$cacheable] = $this->{$cacheable};
         }
+
         return serialize($cacheables);
     }
 

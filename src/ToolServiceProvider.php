@@ -2,10 +2,10 @@
 
 namespace Marshmallow\NovaSettingsTool;
 
-use Laravel\Nova\Nova;
-use Laravel\Nova\Events\ServingNova;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Nova\Events\ServingNova;
+use Laravel\Nova\Nova;
 use Marshmallow\NovaSettingsTool\Http\Middleware\Authorize;
 use Marshmallow\NovaSettingsTool\ValueObjects\SettingRegister;
 
@@ -84,7 +84,8 @@ class ToolServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    private function publishConfigs() {
+    private function publishConfigs()
+    {
         $this->publishes([
             $this->getConfigsPath() => config_path('settings.php'),
         ], 'settings');
@@ -115,20 +116,20 @@ class ToolServiceProvider extends ServiceProvider
         Nova::provideToScript([
             'settings_tool' => [
                 'translations' => [
-                    'settings_title'        => trans('settings::settings.settings_title'),
-                    'save_settings'         => trans('settings::settings.save_settings'),
-                    'save_success'          => trans('settings::settings.save_success'),
-                    'save_error'            => trans('settings::settings.save_error'),
-                    'load_error'            => trans('settings::settings.load_error'),
-                    'module_not_migrated'   => trans('settings::settings.module_not_migrated'),
-                    'setting_tab_suffix'    => trans('settings::settings.setting_tab_suffix')
+                    'settings_title' => trans('settings::settings.settings_title'),
+                    'save_settings' => trans('settings::settings.save_settings'),
+                    'save_success' => trans('settings::settings.save_success'),
+                    'save_error' => trans('settings::settings.save_error'),
+                    'load_error' => trans('settings::settings.load_error'),
+                    'module_not_migrated' => trans('settings::settings.module_not_migrated'),
+                    'setting_tab_suffix' => trans('settings::settings.setting_tab_suffix'),
                 ],
                 'config' => [
-                    'show_title'            => config('settings.show_title'),
-                    'show_suffix'           => config('settings.show_suffix'),
-                    'show_icons'            => config('settings.show_icons')
-                ]
-            ]
+                    'show_title' => config('settings.show_title'),
+                    'show_suffix' => config('settings.show_suffix'),
+                    'show_icons' => config('settings.show_icons'),
+                ],
+            ],
         ]);
     }
 }
