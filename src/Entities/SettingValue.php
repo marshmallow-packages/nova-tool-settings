@@ -24,7 +24,7 @@ final class SettingValue extends Model
      * @var array
      */
     protected $fillable = [
-        'key', 'value'
+        'key', 'value',
     ];
 
     /**

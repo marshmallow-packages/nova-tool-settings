@@ -2,15 +2,14 @@
 
 namespace Marshmallow\NovaSettingsTool\ValueObjects;
 
-use Illuminate\Http\Resources\MergeValue;
-use Serializable;
 use Closure;
-use JsonSerializable;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Support\Collection;
+use JsonSerializable;
 use Marshmallow\NovaSettingsTool\Traits\CacheableTrait;
 use Marshmallow\NovaSettingsTool\Traits\CallableTrait;
 use Marshmallow\NovaSettingsTool\Traits\JsonableTrait;
+use Serializable;
 
 /**
  * Class SettingGroup
@@ -59,7 +58,7 @@ final class SettingGroup implements Serializable, JsonSerializable
         'name',
         'items',
         'icon',
-        'priority'
+        'priority',
     ];
 
     /**
@@ -71,7 +70,7 @@ final class SettingGroup implements Serializable, JsonSerializable
         'name',
         'items',
         'icon',
-        'priority'
+        'priority',
     ];
 
     /**
@@ -80,8 +79,8 @@ final class SettingGroup implements Serializable, JsonSerializable
      */
     public function __construct(Container $container)
     {
-        $this->container    = $container;
-        $this->items        = new Collection();
+        $this->container = $container;
+        $this->items = new Collection();
     }
 
     /**
@@ -99,6 +98,7 @@ final class SettingGroup implements Serializable, JsonSerializable
     public function key(string $key): SettingGroup
     {
         $this->key = $key;
+
         return $this;
     }
 
@@ -107,7 +107,7 @@ final class SettingGroup implements Serializable, JsonSerializable
      */
     public function getName(): string
     {
-        return !empty($this->name) ? $this->name : $this->getKey();
+        return ! empty($this->name) ? $this->name : $this->getKey();
     }
 
     /**
@@ -117,6 +117,7 @@ final class SettingGroup implements Serializable, JsonSerializable
     public function name(string $name): SettingGroup
     {
         $this->name = $name;
+
         return $this;
     }
 
@@ -135,6 +136,7 @@ final class SettingGroup implements Serializable, JsonSerializable
     public function icon(string $icon): SettingGroup
     {
         $this->icon = $icon;
+
         return $this;
     }
 
@@ -153,6 +155,7 @@ final class SettingGroup implements Serializable, JsonSerializable
     public function priority(int $priority): SettingGroup
     {
         $this->priority = $priority;
+
         return $this;
     }
 
@@ -187,6 +190,7 @@ final class SettingGroup implements Serializable, JsonSerializable
     public function addItem(SettingItem $item): SettingGroup
     {
         $this->items->put($item->getKey(), $item);
+
         return $this;
     }
 

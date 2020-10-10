@@ -2,11 +2,11 @@
 
 namespace Marshmallow\NovaSettingsTool\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Schema;
 use Marshmallow\NovaSettingsTool\Traits\Settings;
 use Marshmallow\NovaSettingsTool\ValueObjects\SettingRegister;
-use Illuminate\Http\JsonResponse;
 
 /**
  * Class SettingsController
@@ -51,7 +51,7 @@ final class SettingsController
 
         return response()->json([
             'settings' => $settingRegister,
-            'message' => __('settings::settings.save_success')
+            'message' => __('settings::settings.save_success'),
         ]);
     }
 }
