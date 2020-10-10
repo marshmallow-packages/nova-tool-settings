@@ -2,9 +2,11 @@ name: PHP Syntax Checker
 
 on:
   push:
-    branches: [ master ]
+    branches:
+      - master
   pull_request:
-    branches: [ master ]
+    branches:
+      - master
 
 jobs:
   php-cs-fixer:
