@@ -2,8 +2,8 @@
 
 namespace Marshmallow\NovaSettingsTool\Http\Controllers;
 
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Schema;
 use Marshmallow\NovaSettingsTool\Traits\Settings;
 use Marshmallow\NovaSettingsTool\ValueObjects\SettingRegister;
