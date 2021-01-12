@@ -2,10 +2,10 @@
 
 namespace Marshmallow\NovaSettingsTool;
 
+use Laravel\Nova\Nova;
+use Laravel\Nova\Events\ServingNova;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
-use Laravel\Nova\Events\ServingNova;
-use Laravel\Nova\Nova;
 use Marshmallow\NovaSettingsTool\Http\Middleware\Authorize;
 use Marshmallow\NovaSettingsTool\ValueObjects\SettingRegister;
 
@@ -116,13 +116,13 @@ class ToolServiceProvider extends ServiceProvider
         Nova::provideToScript([
             'settings_tool' => [
                 'translations' => [
-                    'settings_title' => trans('settings::settings.settings_title'),
-                    'save_settings' => trans('settings::settings.save_settings'),
-                    'save_success' => trans('settings::settings.save_success'),
-                    'save_error' => trans('settings::settings.save_error'),
-                    'load_error' => trans('settings::settings.load_error'),
-                    'module_not_migrated' => trans('settings::settings.module_not_migrated'),
-                    'setting_tab_suffix' => trans('settings::settings.setting_tab_suffix'),
+                    'settings_title' => trans('Settings'),
+                    'save_settings' => trans('Save Settings'),
+                    'save_success' => trans('The settings are saved successfully!'),
+                    'save_error' => trans('An error occurred while saving the settings!'),
+                    'load_error' => trans('An error occurred while loading the settings!'),
+                    'module_not_migrated' => trans('The settings module is not migrated!'),
+                    'setting_tab_suffix' => trans('Settings'),
                 ],
                 'config' => [
                     'show_title' => config('settings.show_title'),

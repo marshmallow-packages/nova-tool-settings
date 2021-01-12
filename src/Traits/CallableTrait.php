@@ -3,9 +3,9 @@
 namespace Marshmallow\NovaSettingsTool\Traits;
 
 use Closure;
-use Illuminate\Routing\RouteDependencyResolverTrait;
-use ReflectionException;
 use ReflectionFunction;
+use ReflectionException;
+use Illuminate\Routing\RouteDependencyResolverTrait;
 
 /**
  * Trait CallableTrait
