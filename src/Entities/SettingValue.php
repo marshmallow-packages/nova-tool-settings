@@ -2,8 +2,8 @@
 
 namespace Marshmallow\NovaSettingsTool\Entities;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class SettingValue

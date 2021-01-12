@@ -3,9 +3,9 @@
 namespace Marshmallow\NovaSettingsTool\Http\Middleware;
 
 use Closure;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Http\JsonResponse;
 use Marshmallow\NovaSettingsTool\NovaSettingsTool;
 
 /**

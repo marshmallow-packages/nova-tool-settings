@@ -2,10 +2,10 @@
 
 namespace Marshmallow\NovaSettingsTool;
 
+use Laravel\Nova\Nova;
+use Laravel\Nova\Events\ServingNova;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
-use Laravel\Nova\Events\ServingNova;
-use Laravel\Nova\Nova;
 use Marshmallow\NovaSettingsTool\Http\Middleware\Authorize;
 use Marshmallow\NovaSettingsTool\ValueObjects\SettingRegister;
 

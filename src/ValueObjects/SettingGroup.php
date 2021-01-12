@@ -3,13 +3,13 @@
 namespace Marshmallow\NovaSettingsTool\ValueObjects;
 
 use Closure;
-use Illuminate\Contracts\Container\Container;
-use Illuminate\Support\Collection;
+use Serializable;
 use JsonSerializable;
-use Marshmallow\NovaSettingsTool\Traits\CacheableTrait;
+use Illuminate\Support\Collection;
+use Illuminate\Contracts\Container\Container;
 use Marshmallow\NovaSettingsTool\Traits\CallableTrait;
 use Marshmallow\NovaSettingsTool\Traits\JsonableTrait;
-use Serializable;
+use Marshmallow\NovaSettingsTool\Traits\CacheableTrait;
 
 /**
  * Class SettingGroup

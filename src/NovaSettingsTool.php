@@ -2,9 +2,9 @@
 
 namespace Marshmallow\NovaSettingsTool;
 
-use Illuminate\View\View;
 use Laravel\Nova\Nova;
 use Laravel\Nova\Tool;
+use Illuminate\View\View;
 
 /**
  * Class Settings

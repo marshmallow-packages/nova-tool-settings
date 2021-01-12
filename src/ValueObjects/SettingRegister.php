@@ -3,15 +3,15 @@
 namespace Marshmallow\NovaSettingsTool\ValueObjects;
 
 use Closure;
-use Illuminate\Contracts\Container\Container;
-use Illuminate\Support\Collection;
+use Serializable;
 use JsonSerializable;
-use Marshmallow\NovaSettingsTool\Events\SettingsRegistering;
-use Marshmallow\NovaSettingsTool\Traits\CacheableTrait;
+use ReflectionException;
+use Illuminate\Support\Collection;
+use Illuminate\Contracts\Container\Container;
 use Marshmallow\NovaSettingsTool\Traits\CallableTrait;
 use Marshmallow\NovaSettingsTool\Traits\JsonableTrait;
-use ReflectionException;
-use Serializable;
+use Marshmallow\NovaSettingsTool\Traits\CacheableTrait;
+use Marshmallow\NovaSettingsTool\Events\SettingsRegistering;
 
 /**
  * Class SettingRegister
