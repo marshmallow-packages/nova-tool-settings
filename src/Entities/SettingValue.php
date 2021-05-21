@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
  * Class SettingValue
  * @package Marshmallow\NovaSettingsTool\Entities
  */
-final class SettingValue extends Model
+class SettingValue extends Model
 {
     /**
      * The table associated with the model.
