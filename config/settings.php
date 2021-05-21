@@ -9,6 +9,17 @@ return [
 
     /*
     |----------------------------------------------------------------------------------------
+    | The setting model
+    |----------------------------------------------------------------------------------------
+    |
+    | You can override this with your own model. Make sure your own model extends
+    | our default SettingValue model.
+    |
+    */
+    'model' => \Marshmallow\NovaSettingsTool\Entities\SettingValue::class,
+
+    /*
+    |----------------------------------------------------------------------------------------
     | Settings Tool Page Title
     |----------------------------------------------------------------------------------------
     |
