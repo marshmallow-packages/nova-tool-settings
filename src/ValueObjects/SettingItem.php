@@ -17,7 +17,6 @@ use Illuminate\Contracts\Container\Container;
 use Marshmallow\NovaSettingsTool\Enums\SettingType;
 use Marshmallow\NovaSettingsTool\Traits\CallableTrait;
 use Marshmallow\NovaSettingsTool\Traits\JsonableTrait;
-use Marshmallow\NovaSettingsTool\Entities\SettingValue;
 use Marshmallow\NovaSettingsTool\Traits\CacheableTrait;
 use Marshmallow\NovaSettingsTool\Exceptions\SettingTypeNotValidException;
 
@@ -136,7 +135,7 @@ final class SettingItem implements Serializable, JsonSerializable
      */
     public function getName(): string
     {
-        return ! empty($this->name) ? $this->name : $this->getNameUsingKey();
+        return !empty($this->name) ? $this->name : $this->getNameUsingKey();
     }
 
     /**
@@ -166,7 +165,7 @@ final class SettingItem implements Serializable, JsonSerializable
      */
     public function type(string $type): SettingItem
     {
-        if (! SettingType::isValidValue($type)) {
+        if (!SettingType::isValidValue($type)) {
             throw new SettingTypeNotValidException($type);
         }
         $this->type = $type;
@@ -244,10 +243,10 @@ final class SettingItem implements Serializable, JsonSerializable
      */
     public function getValue(bool $forceFromDatabase = false, bool $isObjectOrArray = false)
     {
-        $keyNotValid = is_null($this->key) || empty($this->key) || ! is_string($this->key);
+        $keyNotValid = is_null($this->key) || empty($this->key) || !is_string($this->key);
         $valueNotValid = is_null($this->value) || empty($this->value);
-        if (! $keyNotValid || ! $valueNotValid || ! $forceFromDatabase) {
-            $collection = SettingValue::findByKey($this->getKey());
+        if (!$keyNotValid || !$valueNotValid || !$forceFromDatabase) {
+            $collection = config('settings.model')::findByKey($this->getKey());
             if ($collection->count() > 0) {
                 $this->value = $collection->first()->value;
             }
@@ -293,14 +292,14 @@ final class SettingItem implements Serializable, JsonSerializable
      */
     public function save(): SettingItem
     {
-        if ($this->changed === true && ! empty($this->getKey())) {
-            $collection = SettingValue::findByKey($this->key);
+        if ($this->changed === true && !empty($this->getKey())) {
+            $collection = config('settings.model')::findByKey($this->key);
             if ($collection->count() > 0) {
                 $value = $this->value;
                 if (is_object($value) || is_array($value)) {
                     $value = json_encode($value);
                 }
-                if (! is_null($this->value)) {
+                if (!is_null($this->value)) {
                     $collection->first()->value = $value;
                     $collection->first()->save();
                     $this->changed = false;
@@ -310,8 +309,9 @@ final class SettingItem implements Serializable, JsonSerializable
                     $this->setDefaultValue();
                 }
 
-                if (! is_null($this->value)) {
-                    $item = new SettingValue();
+                if (!is_null($this->value)) {
+                    $setting_model_class = config('settings.model');
+                    $item = new $setting_model_class();
                     $item->key = $this->getKey();
                     $item->value = $this->value;
                     $item->save();
@@ -340,7 +340,7 @@ final class SettingItem implements Serializable, JsonSerializable
     /**
      * @return string
      */
-    private function getNameUsingKey() : string
+    private function getNameUsingKey(): string
     {
         return title_case(str_replace('_', ' ', snake_case($this->getKey())));
     }
@@ -353,31 +353,48 @@ final class SettingItem implements Serializable, JsonSerializable
     {
         $key = $this->getKey();
         switch ($type) {
-            case SettingType::TEXT: $field = Text::make($key); $field->name = $this->getName();
+            case SettingType::TEXT:
+                $field = Text::make($key);
+                $field->name = $this->getName();
 
-return $field;
-            case SettingType::BOOLEAN: $field = Boolean::make($key); $field->name = $this->getName();
+                return $field;
+            case SettingType::BOOLEAN:
+                $field = Boolean::make($key);
+                $field->name = $this->getName();
 
-return $field;
-            case SettingType::NUMBER: $field = Number::make($key); $field->name = $this->getName();
+                return $field;
+            case SettingType::NUMBER:
+                $field = Number::make($key);
+                $field->name = $this->getName();
 
-return $field;
-            case SettingType::TEXTAREA: $field = Textarea::make($key); $field->name = $this->getName();
+                return $field;
+            case SettingType::TEXTAREA:
+                $field = Textarea::make($key);
+                $field->name = $this->getName();
 
-return $field;
-            case SettingType::DATE: $field = Date::make($key); $field->name = $this->getName();
+                return $field;
+            case SettingType::DATE:
+                $field = Date::make($key);
+                $field->name = $this->getName();
 
-return $field;
-            case SettingType::DATETIME: $field = DateTime::make($key); $field->name = $this->getName();
+                return $field;
+            case SettingType::DATETIME:
+                $field = DateTime::make($key);
+                $field->name = $this->getName();
 
-return $field;
-            case SettingType::CODE: $field = Code::make($key); $field->name = $this->getName();
+                return $field;
+            case SettingType::CODE:
+                $field = Code::make($key);
+                $field->name = $this->getName();
 
-return $field;
-            case SettingType::PASSWORD: $field = Password::make($key); $field->name = $this->getName();
+                return $field;
+            case SettingType::PASSWORD:
+                $field = Password::make($key);
+                $field->name = $this->getName();
 
-return $field;
-            default: return Text::make($key);
+                return $field;
+            default:
+                return Text::make($key);
         }
     }
 }
