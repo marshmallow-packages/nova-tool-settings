@@ -34,6 +34,10 @@ class SettingValue extends Model
      */
     public static function findByKey(string $key): Collection
     {
+        if (trim($key) == '') {
+            return collect([]);
+        }
+
         return self::query()->where('key', $key)->get();
     }
 }
