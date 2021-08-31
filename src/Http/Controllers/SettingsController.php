@@ -29,7 +29,9 @@ final class SettingsController
      */
     public function installed(): JsonResponse
     {
-        return response()->json(['installed' => Schema::hasTable('settings')]);
+        $connection = config('settings.connection');
+        $schema_builder = Schema::connection($connection);
+        return response()->json(['installed' => $schema_builder->hasTable('settings')]);
     }
 
     /**

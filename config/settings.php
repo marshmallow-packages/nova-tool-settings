@@ -18,6 +18,17 @@ return [
     */
     'model' => \Marshmallow\NovaSettingsTool\Entities\SettingValue::class,
 
+
+    /*
+    |----------------------------------------------------------------------------------------
+    | The setting model connection
+    |----------------------------------------------------------------------------------------
+    |
+    | You can override the connection which will be used to check the installtion
+    |
+    */
+    'connection' => null,
+
     /*
     |----------------------------------------------------------------------------------------
     | Settings Tool Page Title
@@ -53,5 +64,5 @@ return [
     |
     */
 
-    'show_icons'    => true
+    'show_icons'    => true,
 ];
